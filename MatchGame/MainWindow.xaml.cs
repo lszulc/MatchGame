@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 namespace MatchGame
 {
     using System.Windows.Threading;
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -38,7 +40,7 @@ namespace MatchGame
         private void Timer_Tick(object sender, EventArgs e)
         {
             tenthsOfSecondsElapsed++;
-            timeTextBlock.Text = (tenthsOfSecondsElapsed / 10F).ToString("0.0s");
+            timeTextBlock.Text = (tenthsOfSecondsElapsed / 10F).ToString("0.0 s");
             if (matchesFound == 8)
             {
                 timer.Stop();
@@ -49,17 +51,43 @@ namespace MatchGame
         private void SetUpGame()
 
         {
-            List<string> animalEmoji = new List<string>() // List of 8 pairs of emoji
+            List<string> lettersFullList = new List<string>() // List of pairs of letters
             {
-                "❤", "❤",
-                "✌", "✌",
-                "😊", "😊",
-                "👀", "👀",
-                "😉", "😉",
-                "✔", "✔",
-                "🎁", "🎁",
-                "🐱‍", "🐱‍",
+                "A", "A",
+                "B", "B",
+                "C", "C",
+                "D", "D",
+                "E", "E",
+                "F", "F",
+                "G", "G",
+                "H", "H‍",
+                "I", "I",
+                "J", "J",
+                "K", "K",
+                "L", "L",
+                "M", "M",
+                "N", "N",
+                "O", "O"
             };
+
+            List<string> letters = new List<string>(); // new list. This is the place for only 8 pairs of letters
+
+            Random randomValue = new Random(); // Create a new random number generator
+
+            for (int i = 0; i < 8; i++) // We need only 8 random pairs of letters
+            {
+                int index = randomValue.Next(lettersFullList.Count); //Pick a random number between 0 and the number of letters left in the full list and call it "index"
+                string newValue = lettersFullList[index]; // Use the random number called "index" to get a random letter from the list
+                letters.Add(newValue); //Add a letter to a new list
+                lettersFullList.Remove(newValue); // Delete this letter from the old list
+
+                if (lettersFullList.Contains(newValue)) //Check if there is another occurence of the letter in the full list
+                {
+                    letters.Add(newValue); // If YES add this occurence to a new list
+                    lettersFullList.Remove(newValue); //...and delete this occurence from the older list
+                }
+            }
+
 
             Random random = new Random(); // Create a new random number generator
 
@@ -69,10 +97,10 @@ namespace MatchGame
                 if (textBlock.Name != "timeTextBlock")
                 {
                     textBlock.Visibility = Visibility.Visible;
-                    int index = random.Next(animalEmoji.Count); //Pick a random number between 0 and the number of emoji left in the list and call it "index"
-                    string nextEmoji = animalEmoji[index]; // Use the random number called "index" to get a random emoji from the list
-                    textBlock.Text = nextEmoji; // Update the TextBlock with the random emoji from the list
-                    animalEmoji.RemoveAt(index); // Remove the random emoji from the list
+                    int index = random.Next(letters.Count); //Pick a random number between 0 and the number of letters left in the list and call it "index"
+                    string nextLetter = letters[index]; // Use the random number called "index" to get a random letter from the list
+                    textBlock.Text = nextLetter; // Update the TextBlock with the random letter from the list
+                    letters.RemoveAt(index); // Remove the random letter from the list
                 }
 
             }
