@@ -27,6 +27,7 @@ namespace MatchGame
         DispatcherTimer timer = new DispatcherTimer();
         int tenthsOfSecondsElapsed;
         int matchesFound;
+        string result;
 
         public MainWindow()
         {
@@ -45,7 +46,21 @@ namespace MatchGame
             if (matchesFound == 8)
             {
                 timer.Stop();
+                result = timeTextBlock.Text;
+                char[] charsToTrim = {'B', 'e', 's', 't', ' ', 't', 'i', 'm', 'e', 's'};
+                char[] charsToTrim2 = { ' ','s' };
                 timeTextBlock.Text = timeTextBlock.Text + " - Play again?";
+
+                if (bestTimeTextBlock.Text == "")
+                {
+                    bestTimeTextBlock.Text = "Best time" + result;
+                }
+
+                else if (Convert.ToDecimal(bestTimeTextBlock.Text.Trim(charsToTrim)) > Convert.ToDecimal(result.Trim(charsToTrim2)))
+                {
+                    bestTimeTextBlock.Text = "Best time" + result;
+                }
+
             }
         }
 
@@ -93,7 +108,7 @@ namespace MatchGame
             foreach (TextBlock textBlock in mainGrid.Children.OfType<TextBlock>()) // Find every TextBlock in the main grid and repeat the following statements for each of them
                 
             {
-                if (textBlock.Name != "timeTextBlock")
+                if (textBlock.Name != "timeTextBlock" && textBlock.Name != "bestTimeTextBlock")
                 {
                     textBlock.Visibility = Visibility.Visible;
                     int index = random.Next(letters.Count); //Pick a random number between 0 and the number of letters left in the list and call it "index"
