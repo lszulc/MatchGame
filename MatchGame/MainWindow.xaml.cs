@@ -39,6 +39,7 @@ namespace MatchGame
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+
             tenthsOfSecondsElapsed++;
             timeTextBlock.Text = (tenthsOfSecondsElapsed / 10F).ToString("0.0 s");
             if (matchesFound == 8)
@@ -53,21 +54,19 @@ namespace MatchGame
         {
             List<string> lettersFullList = new List<string>() // List of pairs of letters
             {
-                "A", "A",
-                "B", "B",
-                "C", "C",
-                "D", "D",
-                "E", "E",
-                "F", "F",
-                "G", "G",
-                "H", "H‍",
-                "I", "I",
-                "J", "J",
-                "K", "K",
-                "L", "L",
-                "M", "M",
-                "N", "N",
-                "O", "O"
+            "A","A",
+            "B","B",
+            "C","C",
+            "D","D",
+            "E","E",
+            "F","F",
+            "G","G",
+            "H","H",
+            "I","I",
+            "J","J",
+            "K","K",
+            "L","L",
+            "M","M",
             };
 
             List<string> letters = new List<string>(); // new list. This is the place for only 8 pairs of letters
